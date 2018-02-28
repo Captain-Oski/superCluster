@@ -36,3 +36,16 @@
 .marker-cluster span {
 	line-height: 30px;
 	}
+
+#map{
+	position: absolute;
+	left:0;
+	height: 100%;
+	width: 80%;
+}
+#arraySelectors{
+	position: absolute;
+	right: 0;
+	width: 20% !important;
+	background-color: aquamarine;
+}
