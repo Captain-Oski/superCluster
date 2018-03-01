@@ -49,13 +49,18 @@ getJSON('smarthalo.geojson', function (geojson) {
     function rankNumpoints() {
         for (var i = 0; i < index.trees[12].points.length; i++) {
             if (index.trees[12].points[i].numPoints === undefined) {
-                objK['features'].push({'id': index.trees[12].points[i].id, 'pt_count': 0, 'lat': 0, long: 0});
+                objK['features'].push({
+                    'id': index.trees[12].points[i].id,
+                    'pt_count': 0,
+                    'lat': 0,
+                    'long': 0
+                });
             } else {
                 objK['features'].push({
                     'id': index.trees[12].points[i].id,
                     'pt_count': index.trees[12].points[i].numPoints,
                     'lat': getLatBounds(index.trees[12].points[i].id),
-                    'long': getLongBounds(index.trees[12].points[i].id),
+                    'long': getLongBounds(index.trees[12].points[i].id)
                 });
             }
         }
@@ -89,9 +94,7 @@ getJSON('smarthalo.geojson', function (geojson) {
     }
 
     objK.features.sort(compareValues('pt_count', 'desc'));
-    console.log(index);
-    console.log(objK);
-    console.log(index.getLeaves(1));
+    console.log(objK)
 });
 
 
