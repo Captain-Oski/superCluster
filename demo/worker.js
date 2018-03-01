@@ -12,7 +12,7 @@ var objK = JSON.parse(jsonStr);
 jsonStr = JSON.stringify(objK);
 
 //getJSON('../test/fixtures/places.json', function (geojson) {
-getJSON('smarthalo.geojson', function (geojson) {
+getJSON('igloofest.geojson', function (geojson) {
 console.log('loaded ' + geojson.length + ' points JSON in ' + ((Date.now() - now) / 1000) + 's');
 
     index = supercluster({
@@ -56,7 +56,6 @@ console.log('loaded ' + geojson.length + ' points JSON in ' + ((Date.now() - now
     }
 
     objK.features.sort(compareValues('pt_count','desc'));
-    //postMessage({myObj: objK});
 
 });
 
@@ -71,6 +70,9 @@ self.onmessage = function (e) {
         postMessage(
             index.getClusters(e.data.bbox, e.data.zoom));
     }
+
+    //postMessage(index.trees[8].points)
+
 };
 
 

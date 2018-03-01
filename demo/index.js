@@ -27,8 +27,7 @@ worker.onmessage = function (e) {
     } else {
         markers.clearLayers();
         markers.addData(e.data);
-        console.log(e.data)
-        test()
+        test();
     }
 };
 
@@ -82,32 +81,24 @@ markers.on('click', function (e) {
 
 
 function test() {
-    $('#arraySelectors').empty()
-    markers.eachLayer(function (layer) {
-        if(layer.feature.properties.point_count === undefined ){return}
-        else {
-        var liContainers = $('<li id="test" class="list-group-item ">'+ layer.feature.properties.point_count + '</li>')
-        //var aContainers = $('<a id="choo" href="#" class="text_info"><span id="listItem" class="">' +layer.feature.geometry.coordinates + '</span></a>')
-        //liContainers.append(aContainers)
-        $('#arraySelectors').append(liContainers);
-        //console.log(layer.feature.properties.cluster_id);
 
-        var li = $('#arraySelectors li');
-        li.sort(function(a, b) {
-            if(parseInt($(b).text()) > parseInt($(a).text()))
-                return 1;
-            else return -1;
-        });
+    $('#arraySelectors').empty();
+    markers.eachLayer(function (layer) {
+        if (layer.feature.properties.point_count === undefined) { return; } else {
+            var liContainers = $('<li id="test" class="list-group-item ">' + layer.feature.properties.point_count + '</li>');
+            var aContainers = $('<div id="choo" href="#" class="text_info"><span id="listItem" class="">' +layer.feature.geometry.coordinates + '</span></div>')
+            liContainers.append(aContainers)
+            $('#arraySelectors').append(liContainers);
+            //console.log(layer.feature.properties.cluster_id);
+
+            var li = $('#arraySelectors li');
+            li.sort(function (a, b) {
+                if (parseInt($(b).text()) > parseInt($(a).text()))
+                    return 1;
+                else return -1;
+            });
             $('#arraySelectors').empty().html(li);
-          }
-        })
+        }
+    });
 
 }
-
-/*
-for (var i = 0; i < obj.length; i++) {
-    var liContainers = $('<li id="test" class="list-group-item col-sm-12"></li>')
-    var aContainers = $('<a id="choo" href="#" class="text_info"><span id="listItem" class="">'+ obj.features[i] + '</span></a>')
-    liContainers.append(aContainers)
-    $('#arraySelectors').append(liContainers);
-}*/
