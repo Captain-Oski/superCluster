@@ -7,13 +7,13 @@ importScripts('../dist/supercluster.js');
 var now = Date.now();
 
 var index;
-var jsonStr = '{"features":[{"id":"","pt_count":""}]}';
+var jsonStr = '{"features":[{"id":"","pt_count":"","lat":"","long":""}]}';
 var objK = JSON.parse(jsonStr);
 jsonStr = JSON.stringify(objK);
 
 //getJSON('../test/fixtures/places.json', function (geojson) {
-getJSON('igloofest.geojson', function (geojson) {
-console.log('loaded ' + geojson.length + ' points JSON in ' + ((Date.now() - now) / 1000) + 's');
+getJSON('smarthalo.geojson', function (geojson) {
+    console.log('loaded ' + geojson.length + ' points JSON in ' + ((Date.now() - now) / 1000) + 's');
 
     index = supercluster({
         log: true,
@@ -22,18 +22,51 @@ console.log('loaded ' + geojson.length + ' points JSON in ' + ((Date.now() - now
         maxZoom: 17
     }).load(geojson.features);
 
-    function rankNumpoints(){
-        for (var i = 0; i < index.trees[8].points.length;i++){
-            objK['features'].push({"id":index.trees[8].points[i].id,"pt_count":index.trees[8].points[i].numPoints});
+
+
+    function getLatBounds(i) {
+        var myLatArray = [];
+        for (var j = 0; j < index.getLeaves(i).length; j++) {
+            myLatArray.push(index.getLeaves(i)[j].geometry.coordinates[0]);
+            //myLatArray += middaytemp[i];
         }
-    } rankNumpoints()
+        var sum = myLatArray.reduce(function(a, b) { return a + b; });
+        var avg = sum/index.getLeaves(i).length
+        return avg
+    }
+
+    function getLongBounds(i) {
+        var myLatArray = [];
+        for (var j = 0; j < index.getLeaves(i).length; j++) {
+            myLatArray.push(index.getLeaves(i)[j].geometry.coordinates[1]);
+            //myLatArray += middaytemp[i];
+        }
+        var sum = myLatArray.reduce(function(a, b) { return a + b; });
+        var avg = sum/index.getLeaves(i).length
+        return avg
+    }
+
+    function rankNumpoints() {
+        for (var i = 0; i < index.trees[12].points.length; i++) {
+            if (index.trees[12].points[i].numPoints === undefined) {
+                objK['features'].push({'id': index.trees[12].points[i].id, 'pt_count': 0, 'lat': 0, long: 0});
+            } else {
+                objK['features'].push({
+                    'id': index.trees[12].points[i].id,
+                    'pt_count': index.trees[12].points[i].numPoints,
+                    'lat': getLatBounds(index.trees[12].points[i].id),
+                    'long': getLongBounds(index.trees[12].points[i].id),
+                });
+            }
+        }
+    } rankNumpoints();
 
     postMessage({ready: true});
 
     // function for dynamic sorting
-    function compareValues(key, order='asc') {
-        return function(a, b) {
-            if(!a.hasOwnProperty(key) || !b.hasOwnProperty(key)) {
+    function compareValues(key, order = 'asc') {
+        return function (a, b) {
+            if (!a.hasOwnProperty(key) || !b.hasOwnProperty(key)) {
                 // property doesn't exist on either object
                 return 0;
             }
@@ -50,13 +83,15 @@ console.log('loaded ' + geojson.length + ' points JSON in ' + ((Date.now() - now
                 comparison = -1;
             }
             return (
-                (order == 'desc') ? (comparison * -1) : comparison
+                (order === 'desc') ? (comparison * -1) : comparison
             );
         };
     }
 
-    objK.features.sort(compareValues('pt_count','desc'));
-
+    objK.features.sort(compareValues('pt_count', 'desc'));
+    console.log(index);
+    console.log(objK);
+    console.log(index.getLeaves(1));
 });
 
 
@@ -90,4 +125,3 @@ function getJSON(url, callback) {
     };
     xhr.send();
 }
-
