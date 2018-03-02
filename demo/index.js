@@ -3,7 +3,12 @@
 /*global L */
 
 
-var map = L.map('map').setView([0, 0], 2);
+var map = L.map('map').setView([0, 0], 2),
+    geocoder = L.Control.Geocoder.nominatim(),
+    control = L.Control.geocoder({
+        geocoder: geocoder
+    }).addTo(map),
+    marker;
 
 L.tileLayer('http://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
@@ -11,9 +16,20 @@ L.tileLayer('http://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png', {
 
 L.control.scale().addTo(map);
 
+map.on('click', function (e) {
+    console.log(e.latlng);
+    geocoder.reverse(e.latlng, map.options.crs.scale(map.getZoom()), function (results) {
+        var r = results[0];
+        console.log(r);
+    });
+});
+
+
+
 var markers = L.geoJson(null, {
     pointToLayer: createClusterIcon
 }).addTo(map);
+
 
 
 
@@ -30,7 +46,7 @@ worker.onmessage = function (e) {
     } else {
         markers.clearLayers();
         markers.addData(e.data);
-        test();
+        $.when().then(test());
     }
 };
 
@@ -59,7 +75,7 @@ function createClusterIcon(feature, latlng) {
     var icon = L.divIcon({
         html: '<div><span>' + feature.properties.point_count_abbreviated + '</span></div>',
         className: 'marker-cluster marker-cluster-' + size,
-        iconSize: L.point(40 , 40)
+        iconSize: L.point(40, 40)
     });
 
     return L.marker(latlng, {icon: icon});
@@ -80,28 +96,45 @@ markers.on('click', function (e) {
  * function that push the unique values into a new <a></a>
  * @returns {*[array]}
  */
-// sort alphabetically
 
+
+
+function reverser(layer,k){
+    var r;
+    geocoder.reverse({lat: layer.feature.geometry.coordinates[0], lng: layer.feature.geometry.coordinates[1]}, map.options.crs.scale(map.getZoom()), function (results) {
+        r = results[0].name;
+        k.html('<div id="choo" href="#" class="text_info"><span id="listItem" class="">' + 'r' + '</span></div>')
+        console.log(r);
+});
+}
 
 function test() {
 
     $('#arraySelectors').empty();
     markers.eachLayer(function (layer) {
-        if (layer.feature.properties.point_count === undefined) { return; } else {
-            var liContainers = $('<li id="test" class="list-group-item"><b>' + layer.feature.properties.point_count + '</b></li>');
-            var aContainers = $('<div id="choo" href="#" class="text_info"><span id="listItem" class="">' +layer.feature.geometry.coordinates + '</span></div>')
-            liContainers.append(aContainers)
-            $('#arraySelectors').append(liContainers);
-            //console.log(layer.feature.properties.cluster_id);
+        //console.log(layer.feature.geometry.coordinates)
 
-            var li = $('#arraySelectors li');
-            li.sort(function (a, b) {
-                if (parseInt($(b).text()) > parseInt($(a).text()))
-                    return 1;
-                else return -1;
-            });
-            $('#arraySelectors').empty().html(li);
-        }
+
+        $(function() {
+            if (layer.feature.properties.point_count === undefined) {
+                return;
+            } else {
+                var liContainers = $('<li id="test" class="list-group-item"><b>' + layer.feature.properties.point_count + '</b></li>');
+                var aContainers = $('');
+                reverser(layer,aContainers)
+                liContainers.append(aContainers);
+                $('#arraySelectors').append(liContainers);
+                //console.log(layer.feature.properties.cluster_id);
+
+                var li = $('#arraySelectors li');
+                li.sort(function (a, b) {
+                    if (parseInt($(b).text()) > parseInt($(a).text()))
+                        return 1;
+                    else return -1;
+                });
+                $('#arraySelectors').empty().html(li);
+            }
+        })
     });
 
 }
