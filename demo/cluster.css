@@ -1,36 +1,58 @@
+.marker-cluster-extra-small {
+	background-color: rgba(244, 241, 150, 0.6);
+}
+.marker-cluster-extra-small div {
+	background-color: rgba(244, 241, 150, 0.8);
+	/*width: 60px;
+	height: 60px;*/
+
+}
 .marker-cluster-small {
 	background-color: rgba(244, 241, 65, 0.6);
 	}
 .marker-cluster-small div {
 	background-color: rgba(244, 241, 65, 0.8);
+	/*width: 60px;
+	height: 60px;*/
 	}
 
 .marker-cluster-medium {
-	background-color: rgba(240, 97, 30, 0.6);
+	background-color: rgba(240, 150, 30, 0.8);
 	}
 .marker-cluster-medium div {
-	background-color: rgba(240, 97, 30, 0.8);
+	background-color: rgba(240, 150, 30, 0.8);
+	/*width: 60px;
+	height: 60px;*/
 	}
 
 .marker-cluster-large {
-	background-color: rgba(253, 4, 0, 0.6);
+	background-color: rgba(255, 87, 0, 0.8);
 	}
 .marker-cluster-large div {
-	background-color: rgba(253, 4, 0, 0.8);
+	background-color: rgba(255, 87, 0, 0.8);
+	/*width: 60px;
+	height: 60px;*/x;
 	}
+
+.marker-cluster-extra-large {
+	background-color: rgba(255, 0, 0, 0.8);
+}
+.marker-cluster-extra-large div {
+	background-color: rgba(255, 0, 0, 0.8);
+	/*width: 60px;
+	height: 60px;*/
+}
 
 .marker-cluster {
 	background-clip: padding-box;
 	border-radius: 20px;
 	}
 .marker-cluster div {
-	width: 30px;
-	height: 30px;
 	margin-left: 5px;
 	margin-top: 5px;
 
 	text-align: center;
-	border-radius: 15px;
+	border-radius: 50%;
 	font: 12px "Helvetica Neue", Arial, Helvetica, sans-serif;
     font-weight: bolder;
     color: black;
@@ -45,10 +67,37 @@
 	left:0;
 	height: 100%;
 	width: 50%;
+	z-index: -1;
+}
+#myList{
+	overflow-y: scroll
+	top:0;
+	position: absolute;
+	height: 50vh;
+	right: 0;
+	width: 50% !important;
+	background-color: darkgrey;
+	height: 50vh;
+}
+#myTable{
+	bottom: 0;
+	position: absolute;
+	right: 0;
+	width: 50% !important;
+	background-color: lightslategrey;
+	height: 50vh;
 }
 #arraySelectors{
+	overflow-y: scroll;
 	position: absolute;
 	right: 0;
 	width: 50% !important;
 	background-color: aquamarine;
+}
+
+#meters{
+	position: absolute;
+	left: 5%;
+	top:5%;
+	z-index: 50;
 }

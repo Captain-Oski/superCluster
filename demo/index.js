@@ -16,13 +16,14 @@ L.tileLayer('http://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png', {
 
 L.control.scale().addTo(map);
 
+/*
 map.on('click', function (e) {
     console.log(e.latlng);
     geocoder.reverse(e.latlng, map.options.crs.scale(map.getZoom()), function (results) {
         var r = results[0];
         console.log(r);
     });
-});
+});*/
 
 
 
@@ -46,7 +47,19 @@ worker.onmessage = function (e) {
     } else {
         markers.clearLayers();
         markers.addData(e.data);
-        $.when().then(appendReverseGeoCodingResult());
+        slider.oninput = function() {
+            radius = this.value
+            output.innerHTML = slider.value;
+            $(".marker-cluster div").css('width',radius+'px')
+            $(".marker-cluster div").css('height',radius+'px')
+        }
+        $('#th1').html(map.getZoom()-1)
+        $('#th2').html(map.getZoom())
+        $('#th3').html(map.getZoom()+1)
+
+        $('#cell1').html((Math.PI*((radius*pixelToMeters(map.getZoom()-1))*(radius/2*pixelToMeters(map.getZoom()-1))))/1000000)
+        $('#cell2').html((Math.PI*((radius*pixelToMeters(map.getZoom()))*(radius/2*pixelToMeters(map.getZoom()))))/1000000)
+        $('#cell3').html((Math.PI*((radius*pixelToMeters(map.getZoom()+1))*(radius/2*pixelToMeters(map.getZoom()+1))))/1000000)
     }
 };
 
@@ -63,20 +76,36 @@ function update() {
 
 
 
+var radius = 40;
 map.on('moveend', update);
 
-function createClusterIcon(feature, latlng) {
+var slider = document.getElementById("myRange");
+var output = document.getElementById("demo");
+output.innerHTML = slider.value;
+
+slider.oninput = function() {
+    radius = this.value
+}
+
+
+
+function createClusterIcon(feature, latlng,) {
+
+
     if (!feature.properties.cluster) return L.marker(latlng);
 
     var count = feature.properties.point_count;
     var size =
-        count < 100 ? 'small' :
-        count < 1000 ? 'medium' : 'large';
+        count < 5 ? 'extra-small' :
+        count < 20 ? 'small' :
+        count < 50 ? 'medium' :
+        count < 150 ? 'large' : 'extra-large';
     var icon = L.divIcon({
         html: '<div><span>' + feature.properties.point_count_abbreviated + '</span></div>',
         className: 'marker-cluster marker-cluster-' + size,
-        iconSize: L.point(40, 40)
+        iconSize: L.point(radius, 0)
     });
+
 
     return L.marker(latlng, {icon: icon});
 
@@ -147,4 +176,10 @@ function appendReverseGeoCodingResult() {
         });
     });
 
+}
+
+
+function pixelToMeters(z){
+    var metresPerPixel = 40075016.686 * Math.abs(Math.cos(map.getCenter().lat * 180/Math.PI)) / Math.pow(2, z+8);
+    return metresPerPixel
 }
