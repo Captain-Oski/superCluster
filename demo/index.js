@@ -3,7 +3,7 @@
 /*global L */
 
 
-var map = L.map('map').setView([0, 0], 2),
+var map = L.map('map').setView([45.5, -73.5], 12),
     geocoder = L.Control.Geocoder.nominatim(),
     control = L.Control.geocoder({
         geocoder: geocoder
@@ -46,7 +46,7 @@ worker.onmessage = function (e) {
     } else {
         markers.clearLayers();
         markers.addData(e.data);
-        $.when().then(test());
+        $.when().then(appendReverseGeoCodingResult());
     }
 };
 
@@ -98,33 +98,43 @@ markers.on('click', function (e) {
  */
 
 
+/**
+ * invoke the leaflet.geocoder and return a result based on the passed lat/lng
+ */
 
-function reverser(layer,k){
+function reverser(layer, k) {
     var r;
-    geocoder.reverse({lat: layer.feature.geometry.coordinates[0], lng: layer.feature.geometry.coordinates[1]}, map.options.crs.scale(map.getZoom()), function (results) {
-        r = results[0].name;
-        k.html('<div id="choo" href="#" class="text_info"><span id="listItem" class="">' + 'r' + '</span></div>')
-        console.log(r);
-});
+    geocoder.reverse({lat: layer.feature.geometry.coordinates[1], lng: layer.feature.geometry.coordinates[0]}, map.options.crs.scale(map.getZoom()), function (results) {
+        r = results[0];
+        try {
+            var div = document.getElementById(layer.feature.properties.cluster_id);
+            div.innerHTML = '<span id="" class="">' + r.name + '</span>';
+        } catch (e) {}
+
+    });
 }
 
-function test() {
+/**
+ * for eachLayer on map extent, append the "reverser" result
+ */
+
+function appendReverseGeoCodingResult() {
 
     $('#arraySelectors').empty();
     markers.eachLayer(function (layer) {
-        //console.log(layer.feature.geometry.coordinates)
-
-
-        $(function() {
+        $(function () {
             if (layer.feature.properties.point_count === undefined) {
                 return;
             } else {
-                var liContainers = $('<li id="test" class="list-group-item"><b>' + layer.feature.properties.point_count + '</b></li>');
-                var aContainers = $('');
-                reverser(layer,aContainers)
+
+
+                var liContainers = $('<li id="myResultTable" class="list-group-item"><b>' + layer.feature.properties.point_count + '</b></li>');
+
+                var aContainers = $('<div id=' + layer.feature.properties.cluster_id + ' href="#" class="text_info"></div>');
+
                 liContainers.append(aContainers);
                 $('#arraySelectors').append(liContainers);
-                //console.log(layer.feature.properties.cluster_id);
+                reverser(layer, aContainers);
 
                 var li = $('#arraySelectors li');
                 li.sort(function (a, b) {
@@ -134,7 +144,7 @@ function test() {
                 });
                 $('#arraySelectors').empty().html(li);
             }
-        })
+        });
     });
 
 }
