@@ -70,14 +70,12 @@
 	z-index: -1;
 }
 #myList{
-	overflow-y: scroll
-	top:0;
+
 	position: absolute;
-	height: 50vh;
 	right: 0;
 	width: 50% !important;
 	background-color: darkgrey;
-	height: 50vh;
+
 }
 #myTable{
 	bottom: 0;
@@ -88,11 +86,13 @@
 	height: 50vh;
 }
 #arraySelectors{
+	top:0;
 	overflow-y: scroll;
 	position: absolute;
 	right: 0;
-	width: 50% !important;
-	background-color: aquamarine;
+	width: 100% !important;
+	background-color: darkgrey;
+	height: 50vh;
 }
 
 #meters{

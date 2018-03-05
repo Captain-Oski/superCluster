@@ -47,6 +47,9 @@ worker.onmessage = function (e) {
     } else {
         markers.clearLayers();
         markers.addData(e.data);
+
+        $.when().then(appendReverseGeoCodingResult());
+
         slider.oninput = function() {
             radius = this.value
             output.innerHTML = slider.value;

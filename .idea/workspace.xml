@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5a5cf2e1-f012-4333-b9e6-3f242e5546f8" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/demo/slider.css" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/demo/cluster.css" afterPath="$PROJECT_DIR$/demo/cluster.css" />
-      <change beforePath="$PROJECT_DIR$/demo/index.html" afterPath="$PROJECT_DIR$/demo/index.html" />
       <change beforePath="$PROJECT_DIR$/demo/index.js" afterPath="$PROJECT_DIR$/demo/index.js" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -17,13 +15,13 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="index.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/demo/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1115">
-              <caret line="59" column="84" lean-forward="false" selection-start-line="59" selection-start-column="76" selection-end-line="59" selection-end-column="84" />
+            <state relative-caret-position="585">
+              <caret line="60" column="39" lean-forward="true" selection-start-line="60" selection-start-column="39" selection-end-line="60" selection-end-column="39" />
               <folding>
-                <marker date="1520282367154" expanded="true" signature="316:322" ph="©" />
+                <marker date="1520282990283" expanded="true" signature="316:322" ph="©" />
               </folding>
             </state>
           </provider>
@@ -41,11 +39,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="cluster.css" pinned="false" current-in-tab="false">
+      <file leaf-file-name="cluster.css" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/demo/cluster.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="310">
-              <caret line="72" column="22" lean-forward="false" selection-start-line="72" selection-start-column="22" selection-end-line="72" selection-end-column="22" />
+            <state relative-caret-position="625">
+              <caret line="93" column="30" lean-forward="false" selection-start-line="93" selection-start-column="30" selection-end-line="93" selection-end-column="30" />
               <folding />
             </state>
           </provider>
@@ -78,6 +76,7 @@
       <find>createClusterIcon</find>
       <find>markers</find>
       <find>pixelto</find>
+      <find>appendReverseGeoCodingResult</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -89,9 +88,9 @@
         <option value="$PROJECT_DIR$/src/jquery.js" />
         <option value="$PROJECT_DIR$/demo/worker.js" />
         <option value="$PROJECT_DIR$/demo/slider.css" />
-        <option value="$PROJECT_DIR$/demo/cluster.css" />
         <option value="$PROJECT_DIR$/demo/index.html" />
         <option value="$PROJECT_DIR$/demo/index.js" />
+        <option value="$PROJECT_DIR$/demo/cluster.css" />
       </list>
     </option>
   </component>
@@ -192,12 +191,12 @@
       <workItem from="1519833969332" duration="7013000" />
       <workItem from="1519841515378" duration="26699000" />
       <workItem from="1520014314405" duration="6326000" />
-      <workItem from="1520271324452" duration="10753000" />
+      <workItem from="1520271324452" duration="11353000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="56171000" />
+    <option name="totallyTimeSpent" value="56771000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1079" y="0" width="1922" height="1053" extended-state="6" />
@@ -242,7 +241,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <marker date="1520282367154" expanded="true" signature="316:322" ph="©" />
+            <marker date="1520282990283" expanded="true" signature="316:322" ph="©" />
           </folding>
         </state>
       </provider>
@@ -278,7 +277,7 @@
         <state relative-caret-position="1335">
           <caret line="89" column="82" lean-forward="false" selection-start-line="89" selection-start-column="8" selection-end-line="89" selection-end-column="82" />
           <folding>
-            <marker date="1520282367154" expanded="true" signature="316:322" ph="©" />
+            <marker date="1520282990283" expanded="true" signature="316:322" ph="©" />
           </folding>
         </state>
       </provider>
@@ -322,7 +321,7 @@
         <state relative-caret-position="645">
           <caret line="43" column="0" lean-forward="false" selection-start-line="43" selection-start-column="0" selection-end-line="43" selection-end-column="59" />
           <folding>
-            <marker date="1520282367154" expanded="true" signature="316:322" ph="©" />
+            <marker date="1520282990283" expanded="true" signature="316:322" ph="©" />
           </folding>
         </state>
       </provider>
@@ -350,7 +349,7 @@
         <state relative-caret-position="165">
           <caret line="11" column="35" lean-forward="false" selection-start-line="11" selection-start-column="35" selection-end-line="11" selection-end-column="35" />
           <folding>
-            <marker date="1520282367154" expanded="true" signature="316:322" ph="©" />
+            <marker date="1520282990283" expanded="true" signature="316:322" ph="©" />
           </folding>
         </state>
       </provider>
@@ -378,7 +377,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <marker date="1520282367154" expanded="true" signature="316:322" ph="©" />
+            <marker date="1520282990283" expanded="true" signature="316:322" ph="©" />
           </folding>
         </state>
       </provider>
@@ -433,14 +432,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/demo/cluster.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="310">
-          <caret line="72" column="22" lean-forward="false" selection-start-line="72" selection-start-column="22" selection-end-line="72" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/demo/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="473">
@@ -461,11 +452,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/demo/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1115">
-          <caret line="59" column="84" lean-forward="false" selection-start-line="59" selection-start-column="76" selection-end-line="59" selection-end-column="84" />
+        <state relative-caret-position="585">
+          <caret line="60" column="39" lean-forward="true" selection-start-line="60" selection-start-column="39" selection-end-line="60" selection-end-column="39" />
           <folding>
-            <marker date="1520282367154" expanded="true" signature="316:322" ph="©" />
+            <marker date="1520282990283" expanded="true" signature="316:322" ph="©" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/demo/cluster.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="625">
+          <caret line="93" column="30" lean-forward="false" selection-start-line="93" selection-start-column="30" selection-end-line="93" selection-end-column="30" />
+          <folding />
         </state>
       </provider>
     </entry>
