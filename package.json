@@ -29,6 +29,7 @@
   "author": "Vladimir Agafonkin",
   "license": "ISC",
   "dependencies": {
+    "dobbyscan": "^1.0.0",
     "kdbush": "^1.0.1"
   },
   "devDependencies": {

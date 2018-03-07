@@ -13,6 +13,7 @@
         <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
         <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
 
+
     </head>
 
     <body>
@@ -28,16 +29,17 @@
         </div>
     </div>
     <div class="slidecontainer">
-        <input type="range" min="40" max="100" value="20" class="slider" id="myRange">
+        <input type="range" min="0" max="100" value="1" class="slider" id="myRange">
         <p>Value: <span id="demo" style="color: white"></span></p>
     </div>
         <div id="map"></div>
     <div class="container">
+        <button id="arraySelectorsBtn" type="button" class="btn btn-primary btn-lg btn-block">Request geocoding</button>
             <div id="myList" class="list-group">
-               <div id="arraySelectors" class="list-group list-group-flush"></div>
+                    <div id="arraySelectors" class="list-group list-group-flush"></div>
             </div>
             <div id="myTable" class="">
-                <table class="table">
+                <talsble class="table">
                     <thead>
                     <tr>
                         <th scope="col">Zoom LvL</th>
@@ -58,13 +60,15 @@
                         <td id="cell3"></td>
                     </tr>
                     </tbody>
-                </table>
+                </talsble>
                 </table>
             </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+
         <script src="index.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
     </body>

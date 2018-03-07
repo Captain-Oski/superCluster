@@ -1,7 +1,7 @@
 'use strict';
-
 /*global L */
 
+var dbscan = require('../node_modules/dobbyscan')
 
 var map = L.map('map').setView([45.5, -73.5], 12),
     geocoder = L.Control.Geocoder.nominatim(),
@@ -11,7 +11,7 @@ var map = L.map('map').setView([45.5, -73.5], 12),
     marker;
 
 L.tileLayer('http://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png', {
-    attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+    attribution: '&copy; <a href="http://mapbox.com">Mapbox</a> contributors'
 }).addTo(map);
 
 L.control.scale().addTo(map);
@@ -26,12 +26,26 @@ map.on('click', function (e) {
 });*/
 
 
-
 var markers = L.geoJson(null, {
+    filter: function (feature, layer) {
+        for (var j = 0; j < 10000; j++) {
+            if (feature.properties.point_count > slider.value) {
+                //console.log(feature.properties.story['id'], myFilterLayer)
+                return true;
+            }
+        }
+    },
     pointToLayer: createClusterIcon
 }).addTo(map);
 
-
+function test(feature, layer, o) {
+    for (var j = 0; j < 10000; j++) {
+        if (feature.properties[o] === dropdown.value) {
+            //console.log(feature.properties.story['id'], myFilterLayer)
+            return true;
+        }
+    }
+}
 
 
 var worker = new Worker('worker.js');
@@ -48,21 +62,24 @@ worker.onmessage = function (e) {
         markers.clearLayers();
         markers.addData(e.data);
 
-        $.when().then(appendReverseGeoCodingResult());
+        // Update dynamicaly the reverse geocoding everytime you pan / zoom the map. (too consuming for nominatim switch to a button.
+        //$.when().then(appendReverseGeoCodingResult());
 
-        slider.oninput = function() {
-            radius = this.value
+        slider.oninput = function () {
+            radius = this.value;
             output.innerHTML = slider.value;
-            $(".marker-cluster div").css('width',radius+'px')
-            $(".marker-cluster div").css('height',radius+'px')
-        }
-        $('#th1').html(map.getZoom()-1)
-        $('#th2').html(map.getZoom())
-        $('#th3').html(map.getZoom()+1)
+            //$(".marker-cluster div").css('width',radius+'px')
+            //$(".marker-cluster div").css('height',radius+'px')
+            markers.clearLayers();
+            markers.addData(e.data);
+        };
+        $('#th1').html(map.getZoom() - 1);
+        $('#th2').html(map.getZoom());
+        $('#th3').html(map.getZoom() + 1);
 
-        $('#cell1').html((Math.PI*((radius*pixelToMeters(map.getZoom()-1))*(radius/2*pixelToMeters(map.getZoom()-1))))/1000000)
-        $('#cell2').html((Math.PI*((radius*pixelToMeters(map.getZoom()))*(radius/2*pixelToMeters(map.getZoom()))))/1000000)
-        $('#cell3').html((Math.PI*((radius*pixelToMeters(map.getZoom()+1))*(radius/2*pixelToMeters(map.getZoom()+1))))/1000000)
+        $('#cell1').html((Math.PI * ((radius * pixelToMeters(map.getZoom() - 1)) * (radius / 2 * pixelToMeters(map.getZoom() - 1)))) / 1000000);
+        $('#cell2').html((Math.PI * ((radius * pixelToMeters(map.getZoom())) * (radius / 2 * pixelToMeters(map.getZoom())))) / 1000000);
+        $('#cell3').html((Math.PI * ((radius * pixelToMeters(map.getZoom() + 1)) * (radius / 2 * pixelToMeters(map.getZoom() + 1)))) / 1000000);
     }
 };
 
@@ -75,24 +92,23 @@ function update() {
     });
 
 }
-
+map.on('moveend', update);
 
 
 
 var radius = 40;
-map.on('moveend', update);
-
-var slider = document.getElementById("myRange");
-var output = document.getElementById("demo");
+var slider = document.getElementById('myRange');
+var dropdown = document.getElementById('dropdownProperties');
+var output = document.getElementById('demo');
 output.innerHTML = slider.value;
 
-slider.oninput = function() {
-    radius = this.value
-}
+slider.oninput = function () {
+    radius = this.value;
+};
 
 
 
-function createClusterIcon(feature, latlng,) {
+function createClusterIcon(feature, latlng) {
 
 
     if (!feature.properties.cluster) return L.marker(latlng);
@@ -106,7 +122,7 @@ function createClusterIcon(feature, latlng,) {
     var icon = L.divIcon({
         html: '<div><span>' + feature.properties.point_count_abbreviated + '</span></div>',
         className: 'marker-cluster marker-cluster-' + size,
-        iconSize: L.point(radius, 0)
+        iconSize: L.point(40, 0)
     });
 
 
@@ -123,6 +139,8 @@ markers.on('click', function (e) {
     }
 });
 
+
+$('#arraySelectorsBtn').bind('click', function () { appendReverseGeoCodingResult(); });
 
 /**
  * function that push the unique values into a new <a></a>
@@ -181,8 +199,12 @@ function appendReverseGeoCodingResult() {
 
 }
 
-
-function pixelToMeters(z){
-    var metresPerPixel = 40075016.686 * Math.abs(Math.cos(map.getCenter().lat * 180/Math.PI)) / Math.pow(2, z+8);
-    return metresPerPixel
+/**
+ * return the conversion factor for a given zoomlevel and a given latitude
+ * @param z as zoomLevel
+ * @returns {number}
+ */
+function pixelToMeters(z) {
+    var metresPerPixel = 40075016.686 * Math.abs(Math.cos(map.getCenter().lat * 180 / Math.PI)) / Math.pow(2, z + 8);
+    return metresPerPixel;
 }

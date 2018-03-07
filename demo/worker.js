@@ -4,6 +4,7 @@
 
 importScripts('../dist/supercluster.js');
 
+
 var now = Date.now();
 
 var index;
@@ -11,7 +12,7 @@ var jsonStr = '{"features":[{"id":"","pt_count":"","lat":"","long":""}]}';
 var objK = JSON.parse(jsonStr);
 jsonStr = JSON.stringify(objK);
 
-//getJSON('../test/fixtures/places.json', function (geojson) {
+
 getJSON('smarthalo.geojson', function (geojson) {
     console.log('loaded ' + geojson.length + ' points JSON in ' + ((Date.now() - now) / 1000) + 's');
 
@@ -112,7 +113,6 @@ self.onmessage = function (e) {
     //postMessage(index.trees[8].points)
 
 };
-
 
 
 

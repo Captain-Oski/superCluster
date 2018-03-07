@@ -86,7 +86,7 @@
 	height: 50vh;
 }
 #arraySelectors{
-	top:0;
+	top:inherit;
 	overflow-y: scroll;
 	position: absolute;
 	right: 0;
@@ -100,4 +100,11 @@
 	left: 5%;
 	top:5%;
 	z-index: 50;
+}
+
+#arraySelectorsBtn{
+	position: absolute;
+	right: 0 !important;
+	width: 50% !important;
+	z-index: 200;
 }
